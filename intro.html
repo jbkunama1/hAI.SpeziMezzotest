@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hAI.SpeziMezzotest – Intro</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html { width: 100%; height: 100%; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+    video { width: 100%; height: 100%; object-fit: cover; }
+    .skip-btn {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      backdrop-filter: blur(5px);
+      z-index: 10;
+    }
+    .skip-btn:hover { background: rgba(255, 255, 255, 0.4); }
+  </style>
+</head>
+<body>
+  <video id="introVideo" autoplay muted playsinline>
+    <source src="mezzotest.mp4" type="video/mp4">
+    Dein Browser unterstützt kein Video.
+  </video>
+  <button class="skip-btn" onclick="finishIntro()">Überspringen →</button>
+
+  <script>
+    const video = document.getElementById('introVideo');
+    
+    // Enable audio after user interaction or just let it play muted/unmuted if allowed
+    video.addEventListener('ended', finishIntro);
+    video.addEventListener('error', finishIntro);
+
+    function finishIntro() {
+      localStorage.setItem('intro_shown', 'true');
+      window.location.href = 'role-select.html';
+    }
+
+    // Safety timeout in case video fails to load or play
+    setTimeout(() => {
+      if(video.paused && video.currentTime === 0) {
+        finishIntro();
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
