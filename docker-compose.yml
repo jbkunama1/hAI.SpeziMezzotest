@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+version: '3.8'
+
+services:
+  spezi-mezzotest:
+    image: ghcr.io/jbkunama1/hai.spezimezzotest:latest
+    container_name: speci-mezzotest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    networks:
+      - highfishNetwork
+
+networks:
+  highfishNetwork:
+    external: true
