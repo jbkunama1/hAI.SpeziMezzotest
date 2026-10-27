@@ -6,23 +6,23 @@
   <title>hAI.SpeziMezzotest – Intro</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body, html { width: 100%; height: 100%; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+    body, html { width: 100%; height: 100%; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     video { width: 100%; height: 100%; object-fit: cover; }
-    .skip-btn {
+    .skip {
       position: absolute;
       bottom: 2rem;
       right: 2rem;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(0,0,0,0.6);
       color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      padding: 0.6rem 1.2rem;
-      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
       backdrop-filter: blur(5px);
       z-index: 10;
     }
-    .skip-btn:hover { background: rgba(255, 255, 255, 0.4); }
+    .skip:hover { background: rgba(0,0,0,0.8); }
   </style>
 </head>
 <body>
@@ -30,26 +30,16 @@
     <source src="mezzotest.mp4" type="video/mp4">
     Dein Browser unterstützt kein Video.
   </video>
-  <button class="skip-btn" onclick="finishIntro()">Überspringen →</button>
+  <button class="skip" onclick="finishIntro()">Überspringen →</button>
 
   <script>
     const video = document.getElementById('introVideo');
-    
-    // Enable audio after user interaction or just let it play muted/unmuted if allowed
-    video.addEventListener('ended', finishIntro);
-    video.addEventListener('error', finishIntro);
-
     function finishIntro() {
-      localStorage.setItem('intro_shown', 'true');
+      localStorage.setItem('intro_seen', 'true');
       window.location.href = 'role-select.html';
     }
-
-    // Safety timeout in case video fails to load or play
-    setTimeout(() => {
-      if(video.paused && video.currentTime === 0) {
-        finishIntro();
-      }
-    }, 5000);
+    video.addEventListener('ended', finishIntro);
+    video.addEventListener('error', finishIntro); // Fallback if video missing/fails
   </script>
 </body>
 </html>

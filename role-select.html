@@ -13,45 +13,39 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       padding: 2rem;
     }
     .container { max-width: 600px; width: 100%; text-align: center; }
     h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
     .subtitle { opacity: 0.85; margin-bottom: 2rem; }
-    .cards { display: grid; gap: 1rem; }
-    .card {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+    .roles { display: grid; gap: 1rem; }
+    .role-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 12px;
-      padding: 1.5rem;
-      backdrop-filter: blur(10px);
-      text-decoration: none;
+      padding: 1.25rem;
       color: #fff;
       font-size: 1.25rem;
-      font-weight: bold;
-      transition: transform 0.2s, background 0.2s;
+      font-weight: 600;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s;
       display: block;
     }
-    .card:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.2); }
-    footer { margin-top: 3rem; opacity: 0.7; font-size: 0.9rem; }
+    .role-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🧪 hAI.SpeziMezzotest</h1>
-    <p class="subtitle">Wähle deine Rolle, um fortzufahren:</p>
-
-    <div class="cards">
-      <a class="card" href="moderator.html">🎙️ Moderator</a>
-      <a class="card" href="tester.html">🥤 Tester</a>
-      <a class="card" href="admin.html">⚙️ Admin</a>
+    <p class="subtitle">Wähle deine Rolle, um zu starten:</p>
+    <div class="roles">
+      <a class="role-btn" href="cola-fanta-blindtest.html?role=moderator">🎙️ Moderator</a>
+      <a class="role-btn" href="cola-fanta-blindtest.html?role=tester">🧑‍🔬 Tester</a>
+      <a class="role-btn" href="admin.html">⚙️ Admin</a>
     </div>
-
-    <footer>
-      <p>MIT License · <a href="https://github.com/jbkunama1/hAI.SpeziMezzotest" style="color: #fff;">Source auf GitHub</a></p>
-    </footer>
   </div>
 </body>
 </html>

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hAI.SpeziMezzotest – Start</title>
+  <title>hAI.SpeziMezzotest</title>
   <script>
-    // Check if intro was already shown in this session or browser
-    if (!localStorage.getItem('intro_shown')) {
+    // Check if intro has been shown in this session/browser
+    if (!localStorage.getItem('intro_seen')) {
       window.location.replace('intro.html');
     } else {
       window.location.replace('role-select.html');
@@ -14,8 +14,5 @@
   </script>
 </head>
 <body>
-  <noscript>
-    <meta http-equiv="refresh" content="0; url=role-select.html">
-  </noscript>
 </body>
 </html>
