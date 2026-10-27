@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin-Bereich – hAI.SpeziMezzotest</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; padding: 2rem; background: #f4f4f9; color: #333; }
+    .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+    textarea, input, select { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font: inherit; }
+    textarea { min-height: 180px; }
+    .btn { background: #007bff; color: #fff; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .btn:hover { background: #0056b3; }
+    .info { font-size: 0.85rem; color: #666; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚙️ Admin-Bereich (Setup & Start)</h1>
+    
+    <label for="gameModeSelect">Spielmodus wählen</label>
+    <select id="gameModeSelect">
+      <option value="Klassisch">Klassisch (Standard)</option>
+    </select>
+    <div class="info" id="modeInfo">Wähle oder erstelle unten eigene Spielmodi.</div>
+
+    <label for="gameModes">Verfügbare Spielmodi (einer pro Zeile)</label>
+    <textarea id="gameModes" placeholder="Klassisch&#10;Hardcore&#10;Team-Battle&#10;Blind & Schnell"></textarea>
+
+    <label for="drinks">Getränke / Mischungen (bis zu 99 Sorten, jede Zeile = 1 Sorte)</label>
+    <div class="info">Gib hier bis zu 99 Getränke ein. Jede Zeile entspricht einer Sorte in der geheimen Liste.</div>
+    <textarea id="drinks" placeholder="1. Mezzo Mix&#10;2. Schwip Schwap&#10;3. Paulaner Spezi&#10;..."></textarea>
+    
+    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+      <button class="btn" onclick="saveSettings()">Einstellungen speichern & Starten</button>
+      <a class="btn" style="background: #6c757d; text-decoration: none; display: inline-flex; align-items: center;" href="role-select.html">Zurück zur Rollenauswahl</a>
+    </div>
+  </div>
+  <script>
+    function loadSettings() {
+      const savedModes = localStorage.getItem('admin_gameModes');
+      const savedDrinks = localStorage.getItem('admin_drinks');
+      const savedSelectedMode = localStorage.getItem('admin_selectedMode');
+
+      if (savedModes) document.getElementById('gameModes').value = savedModes;
+      if (savedDrinks) document.getElementById('drinks').value = savedDrinks;
+      
+      updateModeDropdown();
+      if (savedSelectedMode) {
+        document.getElementById('gameModeSelect').value = savedSelectedMode;
+      }
+    }
+
+    function updateModeDropdown() {
+      const modesText = document.getElementById('gameModes').value;
+      const select = document.getElementById('gameModeSelect');
+      const current = select.value;
+      const lines = modesText.split('\n').map(s => s.trim()).filter(Boolean);
+      
+      select.innerHTML = '';
+      if (lines.length === 0) {
+        select.innerHTML = '<option value="Klassisch">Klassisch (Standard)</option>';
+      } else {
+        lines.forEach(mode => {
+          const opt = document.createElement('option');
+          opt.value = mode;
+          opt.textContent = mode;
+          select.appendChild(opt);
+        });
+      }
+      if (lines.includes(current)) {
+        select.value = current;
+      }
+    }
+
+    document.getElementById('gameModes').addEventListener('input', updateModeDropdown);
+
+    function saveSettings() {
+      const modes = document.getElementById('gameModes').value;
+      const drinks = document.getElementById('drinks').value;
+      const selectedMode = document.getElementById('gameModeSelect').value;
+      
+      localStorage.setItem('admin_gameModes', modes);
+      localStorage.setItem('admin_drinks', drinks);
+      localStorage.setItem('admin_selectedMode', selectedMode);
+      
+      alert('Einstellungen erfolgreich gespeichert! Du wirst zum Moderator-Bereich weitergeleitet.');
+      window.location.href = 'cola-fanta-blindtest.html?role=moderator';
+    }
+
+    loadSettings();
+  </script>
+</body>
+</html>

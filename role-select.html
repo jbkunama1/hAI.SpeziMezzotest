@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hAI.SpeziMezzotest – Rollenauswahl</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .container { max-width: 600px; width: 100%; text-align: center; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { opacity: 0.85; margin-bottom: 2rem; }
+    .roles { display: grid; gap: 1rem; }
+    .role-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 1.25rem;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s;
+      display: block;
+    }
+    .role-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 hAI.SpeziMezzotest</h1>
+    <p class="subtitle">Wähle deine Rolle, um zu starten:</p>
+    <div class="roles">
+      <a class="role-btn" href="cola-fanta-blindtest.html?role=moderator">🎙️ Moderator</a>
+      <a class="role-btn" href="cola-fanta-blindtest.html?role=tester">🧑‍🔬 Tester</a>
+      <a class="role-btn" href="admin.html">⚙️ Admin</a>
+    </div>
+  </div>
+</body>
+</html>
