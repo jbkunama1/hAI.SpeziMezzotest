@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin-Bereich – hAI.SpeziMezzotest</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; padding: 2rem; background: #f4f4f9; }
+    .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+    textarea, input { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+    .btn { background: #007bff; color: #fff; padding: 0.6rem 1.2rem; border: none; border-radius: 4px; cursor: pointer; }
+    .btn:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚙️ Admin-Bereich</h1>
+    <label>Spielmodi (einer pro Zeile)</label>
+    <textarea id="gameModes" rows="5" placeholder="Klassisch&#10;Hardcore&#10;Team-Battle"></textarea>
+    
+    <label>Getränke/Mischungen (bis zu 99, einer pro Zeile)</label>
+    <textarea id="drinks" rows="10" placeholder="Cola&#10;Fanta&#10;Spezi..."></textarea>
+    
+    <button class="btn" onclick="saveSettings()">Einstellungen speichern</button>
+    <a href="index.html" style="display:block; margin-top:1rem;">Zurück zur Startseite</a>
+  </div>
+  <script>
+    function saveSettings() {
+      const modes = document.getElementById('gameModes').value;
+      const drinks = document.getElementById('drinks').value;
+      localStorage.setItem('admin_gameModes', modes);
+      localStorage.setItem('admin_drinks', drinks);
+      alert('Einstellungen gespeichert!');
+    }
+    // Load existing
+    document.getElementById('gameModes').value = localStorage.getItem('admin_gameModes') || '';
+    document.getElementById('drinks').value = localStorage.getItem('admin_drinks') || '';
+  </script>
+</body>
+</html>
