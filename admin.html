@@ -24,11 +24,19 @@
     <label for="gameModeSelect">Spielmodus wählen</label>
     <select id="gameModeSelect">
       <option value="Klassisch">Klassisch (Standard)</option>
-    </select>
-    <div class="info" id="modeInfo">Wähle oder erstelle unten eigene Spielmodi.</div>
+          <option value="Team-Battle">Team-Battle</option>
+          <option value="Blind & Schnell">Blind & Schnell</option>
+          <option value="Expert">Expert Mode</option>
+        </select>
+        <div class="info" id="modeInfo">Wähle oder erstelle unten eigene Spielmodi. Jeder Modus hat eigene Regeln!</div>
+    
+        <div id="modeDescription" class="notice" style="margin-top: 1rem; margin-bottom: 1rem;">
+          <h3 id="modeTitle">Klassischer Modus</h3>
+          <p id="modeText">Standard-Blindtest mit zwei Testern. Bewertet jedes Glas unabhängig voneinander.</p>
+        </div>
 
-    <label for="gameModes">Verfügbare Spielmodi (einer pro Zeile)</label>
-    <textarea id="gameModes" placeholder="Klassisch&#10;Hardcore&#10;Team-Battle&#10;Blind & Schnell"></textarea>
+        <label for="gameModes">Verfügbare Spielmodi (einer pro Zeile)</label>
+        <textarea id="gameModes" placeholder="Klassisch&#10;Team-Battle&#10;Blind & Schnell&#10;Expert&#10;Hardcore&#10;Party Mode"></textarea>
 
     <label for="drinks">Getränke / Mischungen (bis zu 99 Sorten, jede Zeile = 1 Sorte)</label>
     <div class="info">Gib hier bis zu 99 Getränke ein. Jede Zeile entspricht einer Sorte in der geheimen Liste.</div>
@@ -54,29 +62,59 @@
       }
     }
 
-    function updateModeDropdown() {
-      const modesText = document.getElementById('gameModes').value;
-      const select = document.getElementById('gameModeSelect');
-      const current = select.value;
-      const lines = modesText.split('\n').map(s => s.trim()).filter(Boolean);
-      
-      select.innerHTML = '';
-      if (lines.length === 0) {
-        select.innerHTML = '<option value="Klassisch">Klassisch (Standard)</option>';
-      } else {
-        lines.forEach(mode => {
-          const opt = document.createElement('option');
-          opt.value = mode;
-          opt.textContent = mode;
-          select.appendChild(opt);
-        });
+    const modeDescriptions = {
+          'Klassisch': {
+            title: 'Klassischer Modus',
+            text: 'Standard-Blindtest mit zwei Testern. Bewertet jedes Glas unabhängig voneinander.'
+          },
+          'Team-Battle': {
+            title: 'Team-Battle',
+            text: 'Zwei Teams mit je 2+ Personen. Bewertet teambasiert mit gemeinsamen Entscheidungen und Team-Sieger Announcement.'
+          },
+          'Blind & Schnell': {
+            title: 'Blind & Schnell',
+            text: 'Zeitlimit pro Bewertung (15-30 Sekunden) mit Countdown-Display und Geschwindigkeits-Boni.'
+          },
+          'Expert': {
+            title: 'Expert Mode', 
+            text: 'Mehr Details pro Getränk, Geschmack-Skala 1-10 statt Vergleich, und haptische Hinweise wie Kohlensäure-Stärke.'
       }
-      if (lines.includes(current)) {
-        select.value = current;
-      }
-    }
+        };
 
-    document.getElementById('gameModes').addEventListener('input', updateModeDropdown);
+        function updateModeDescription(mode) {
+          const desc = modeDescriptions[mode] || modeDescriptions['Klassisch'];
+          document.getElementById('modeTitle').textContent = desc.title;
+          document.getElementById('modeText').textContent = desc.text;
+        }
+
+        function updateModeDropdown() {
+          const modesText = document.getElementById('gameModes').value;
+          const select = document.getElementById('gameModeSelect');
+          const current = select.value;
+          const lines = modesText.split('\n').map(s => s.trim()).filter(Boolean);
+      
+          select.innerHTML = '';
+          if (lines.length === 0) {
+            select.innerHTML = '<option value="Klassisch">Klassisch (Standard)</option>';
+          } else {
+            lines.forEach(mode => {
+              const opt = document.createElement('option');
+              opt.value = mode;
+              opt.textContent = mode;
+              select.appendChild(opt);
+            });
+          }
+          if (lines.includes(current)) {
+            select.value = current;
+          }
+          updateModeDescription(current);
+        }
+
+        document.getElementById('gameModeSelect').addEventListener('change', function() {
+          updateModeDescription(this.value);
+        });
+
+        document.getElementById('gameModes').addEventListener('input', updateModeDropdown);
 
     function saveSettings() {
       const modes = document.getElementById('gameModes').value;
