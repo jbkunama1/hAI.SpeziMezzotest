@@ -38,8 +38,51 @@
 <section id="resolve" class="panel"><article class="card"><h2>Auflösung und Export</h2><p class="muted">Erst hier werden die echten Getränkenamen eingeblendet.</p><div class="btn-row" style="margin-top:1rem;"><button class="btn btn-primary" id="revealBtn">Auflösung anzeigen</button><button class="btn" id="hideBtn">Auflösung verbergen</button><button class="btn btn-good" id="exportBtn">CSV exportieren</button></div><div id="revealWarning" class="notice danger" style="margin-top:1rem;">Die Auflösung ist aktuell verborgen.</div><div id="revealArea" class="result-block" style="margin-top:1rem;"></div></article></section>
 <div class="footer-space" aria-hidden="true"></div></main>
 <script>
-const state={reveal:false,samples:[],products:[]};
-const els={tester1:document.getElementById('tester1'),tester2:document.getElementById('tester2'),productList:document.getElementById('productList'),sampleCount:document.getElementById('sampleCount'),pauseEvery:document.getElementById('pauseEvery'),setupHint:document.getElementById('setupHint'),sampleList:document.getElementById('sampleList'),testNotice:document.getElementById('testNotice'),summaryCards:document.getElementById('summaryCards'),resultsTableBody:document.getElementById('resultsTableBody'),revealWarning:document.getElementById('revealWarning'),revealArea:document.getElementById('revealArea'),themeToggle:document.getElementById('themeToggle')};
+// Spielmodi Konfiguration
+const gameModes = {
+  'Klassisch': { 
+    title: 'Klassischer Modus',
+    description: 'Standard-Blindtest mit zwei Testern',
+    timeLimit: 0,
+    scoreType: 'binary'
+  },
+  'Team-Battle': { 
+    title: 'Team-Battle',
+    description: 'Zwei Teams mit je 2+ Personen',
+    timeLimit: 0,
+    scoreType: 'team'
+  },
+  'Blind & Schnell': { 
+    title: 'Blind & Schnell',
+    description: 'Zeitlimit pro Bewertung mit Countdown',
+    timeLimit: 25,
+    scoreType: 'speed'
+  },
+  'Expert': { 
+    title: 'Expert Mode',
+    description: 'Detaillierte Bewertung mit Skala 1-10',
+    timeLimit: 0,
+    scoreType: 'expert'
+  }
+};
+
+const state={reveal:false,samples:[],products:[],gameMode:'Klassisch'};
+const els={
+  tester1:document.getElementById('tester1'),
+  tester2:document.getElementById('tester2'),
+  productList:document.getElementById('productList'),
+  sampleCount:document.getElementById('sampleCount'),
+  pauseEvery:document.getElementById('pauseEvery'),
+  setupHint:document.getElementById('setupHint'),
+  sampleList:document.getElementById('sampleList'),
+  testNotice:document.getElementById('testNotice'),
+  summaryCards:document.getElementById('summaryCards'),
+  resultsTableBody:document.getElementById('resultsTableBody'),
+  revealWarning:document.getElementById('revealWarning'),
+  revealArea:document.getElementById('revealArea'),
+  themeToggle:document.getElementById('themeToggle'),
+  gameMode:document.getElementById('gameMode')
+};
 function initTheme(){const root=document.documentElement;let mode=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';root.setAttribute('data-theme',mode);updateThemeIcon(mode);els.themeToggle.addEventListener('click',()=>{mode=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',mode);updateThemeIcon(mode);});}
 function updateThemeIcon(mode){els.themeToggle.innerHTML=mode==='dark'?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'}
 document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>switchTab(btn.dataset.tab)));
