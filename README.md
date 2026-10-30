@@ -12,8 +12,8 @@ A playful blind-taste comparison game — can you tell Cola from Fanta?
 
 ```bash
 # Or serve locally
-python3 -m http.server 8080
-# Then open http://localhost:8080/cola-fanta-blindtest.html
+python3 -m http.server 8123
+# Then open http://localhost:8123/cola-fanta-blindtest.html
 ```
 
 ## 🚀 Deployment
@@ -34,7 +34,7 @@ docker network create highfishNetwork
 ```
 
 **Access:**
-- **URL**: `http://<your-portainer-host>:8080`
+- **URL**: `http://<your-portainer-host>:8123`
 - **Container**: `speci-mezzotest`
 - **Network**: `highfishNetwork`
 
@@ -43,7 +43,7 @@ docker network create highfishNetwork
 ```bash
 # Build and run manually
 docker build -t ghcr.io/jbkunama1/hai.spezimezzotest:latest .
-docker run -d -p 8080:80 --name speci-mezzotest \
+docker run -d -p 8123:80 --name speci-mezzotest \
   --network highfishNetwork \
   ghcr.io/jbkunama1/hai.spezimezzotest:latest
 ```
